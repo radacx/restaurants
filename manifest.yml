@@ -1,0 +1,5 @@
+applications:
+- name: buckyxjs
+  random-route: true
+  memory: 256M
+  path: /server
