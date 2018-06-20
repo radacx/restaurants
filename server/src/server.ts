@@ -1,9 +1,7 @@
 import * as express from "express";
 import {json} from "body-parser";
 import {Express, Request, Response} from "express";
-import { wordsRoute } from "./routes/wordsRoute";
 import { config } from 'dotenv';
-import { ServerScope } from 'nano';
 const { Querystring } = require('request/lib/querystring.js');
 import { unescape } from 'querystring';
 
@@ -18,9 +16,6 @@ if (process.env.VCAP_SERVICES) {
   config();
   dbUrl = process.env.DB_URL!;
 }
-
-const Cloudant = require('nano');
-export const cloudant: ServerScope = Cloudant(dbUrl);
 
 /**
  * Basic configurations of all middleware libraries are applied here.
@@ -45,18 +40,8 @@ export class Server {
 
         app.use(express.static(`${__dirname}/app`));
 
-        Server.setupRoutes(app);
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
     }
-
-    /**
-     * Setup all endpoints of your API. You can extend this method or if there are many different routes,
-     * it might be better to move this to a separate class.
-     */
-    private static setupRoutes(app: Express): void {
-      wordsRoute(app);
-    }
-
 }
 
 Server.start();
