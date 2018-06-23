@@ -1,4 +1,7 @@
 export interface IFreeTablesRequest {
-  from: Date;
-  to: Date;
+  day: Date;
+  hoursFrom: number;
+  hoursTo: number;
+  seats: number;
+  wholeDay: boolean;
 }

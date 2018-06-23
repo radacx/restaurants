@@ -9,7 +9,6 @@
     "scripts": {
         "build": "gulp build",
         "postbuild": "cpx ../client/build/** ./build/src/app",
-        "start-dev": "gulp watch",
         "start": "node ./build/src/server.js"
     },
     "dependencies": {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Restaurants } from "../containers/Restaurants";
 
-export interface IRestaurantAppCallbackProps {
+export interface IRestaurantsAppCallbackProps {
   readonly fetchRestaurants: () => Promise<void>;
 }
 
@@ -9,7 +9,7 @@ interface IState {
   readonly initialized: boolean;
 }
 
-export class RestaurantApp extends React.PureComponent<IRestaurantAppCallbackProps> {
+export class RestaurantsApp extends React.PureComponent<IRestaurantsAppCallbackProps> {
   readonly state: IState = {
     initialized: false,
   };
@@ -22,6 +22,7 @@ export class RestaurantApp extends React.PureComponent<IRestaurantAppCallbackPro
 
   render() {
     if (!this.state.initialized) {
+      // TODO loader
       return null;
     }
 

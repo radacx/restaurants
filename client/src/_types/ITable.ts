@@ -1,5 +1,6 @@
 export interface ITable {
   id: number;
+  number: number;
   seats: number;
-  reservedHours: number[];
+  freeTimeBlocks: number[];
 }

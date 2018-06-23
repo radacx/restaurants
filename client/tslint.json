@@ -15,6 +15,7 @@
     "no-var-requires": false,
     "jsx-boolean-value": false,
     "interface-over-type-literal": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "max-classes-per-file": false
   }
 }

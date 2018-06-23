@@ -13,7 +13,5 @@ export const configureStore = (): Store<IStore> => {
     applyMiddleware(thunk),
   );
 
-  const store = createStore(reducer, enhancer);
-
-  return store;
+  return createStore(reducer, enhancer);
 };

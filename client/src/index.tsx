@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Main } from './app/Main';
+import { MainApp } from './app/MainApp';
 import './styles/index.css';
 import 'typeface-roboto';
 
 ReactDOM.render(
-  <Main />,
+  <MainApp />,
   document.getElementById('root') as HTMLElement
 );

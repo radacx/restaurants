@@ -1,7 +1,7 @@
-import { IRestaurant } from "../_types/IRestaurant";
-import { ITable } from "../_types/ITable";
+import { IRestaurantsAppStore } from "../app/applications/Restaurants/store/IRestaurantsAppStore";
+import { IReservationsAppStore } from "../app/applications/Reservations/store/IReservationsAppStore";
 
 export interface IStore {
-  restaurants: IRestaurant[];
-  restaurantTables: ITable[];
+  restaurantsApp: IRestaurantsAppStore,
+  reservationsApp: IReservationsAppStore,
 }
