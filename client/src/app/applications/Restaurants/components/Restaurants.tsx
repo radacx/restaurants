@@ -4,7 +4,6 @@ import { ComboBox } from "../../../../_shared/Components/ComboBox";
 import DatePicker from "material-ui-pickers/DatePicker";
 import { IFreeTablesRequest } from "../../../../_types/IFreeTablesRequest";
 import { Restaurant } from "../containers/Restaurant";
-import { fakeBackend } from "../../../../fakeBackend";
 import { RouteComponentProps } from "react-router";
 import {
   Button,
@@ -17,6 +16,8 @@ import {
 } from "@material-ui/core";
 import * as classNames from "classnames";
 import { NumericInput } from "../../../../_shared/Components/NumericInput";
+import { ReservationCreatedSnackbar } from "./ReservationCreatedSnackbar";
+import { INewReservation } from "../../../../_types/INewReservation";
 
 export interface IRestaurantsDataProps {
   readonly restaurants: IRestaurant[];
@@ -24,6 +25,7 @@ export interface IRestaurantsDataProps {
 
 export interface IRestaurantsCallbackProps {
   readonly getFreeTables: (restaurantId: number, freeTablesRequest: IFreeTablesRequest) => void;
+  readonly createReservation: (restaurantId: number, reservation: INewReservation) => void;
 }
 
 type State = {
@@ -33,6 +35,7 @@ type State = {
   readonly hoursTo: number;
   readonly seats: number;
   readonly wholeDay: boolean;
+  readonly openSnackbar: boolean;
 }
 
 const getStyles = (theme: Theme) => ({
@@ -57,6 +60,7 @@ class Restaurants extends React.PureComponent<Props, State> {
     wholeDay: true,
     hoursFrom: 0,
     hoursTo: 0,
+    openSnackbar: false,
   };
 
   _getLabel = (restaurant: IRestaurant) => restaurant.name;
@@ -101,14 +105,20 @@ class Restaurants extends React.PureComponent<Props, State> {
       return;
     }
 
-    await fakeBackend.createReservation(restaurant.id, {
+    const reservation: INewReservation = {
       block,
       tableId,
       day: day!,
-    });
+    };
+    this.props.createReservation(restaurant.id, reservation);
 
-    this.props.history.push('/reservations');
+    this.setState({ openSnackbar: true });
   };
+
+  _hideSnackBar = () => this.setState({ openSnackbar: false });
+
+  _navigateToReservations = () =>
+    this.props.history.push('/reservations');
 
   render() {
     const { restaurants, classes } = this.props;
@@ -190,6 +200,14 @@ class Restaurants extends React.PureComponent<Props, State> {
           </Button>
         </FormControl>
         <Restaurant createReservation={this._createReservation} />
+
+        <ReservationCreatedSnackbar
+          message="Reservation created"
+          navigationMessage="Go to reservations"
+          open={this.state.openSnackbar}
+          onClose={this._hideSnackBar}
+          onNavigation={this._navigateToReservations}
+        />
       </>
     );
   }

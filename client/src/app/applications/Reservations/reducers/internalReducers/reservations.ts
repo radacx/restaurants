@@ -8,7 +8,7 @@ import {
 type State = {
   [index: number]: IReservation,
 };
-const initialState: State = [];
+const initialState: State = {};
 
 export const reservations = (state = initialState, { type, payload }: IAction) => {
   switch (type) {

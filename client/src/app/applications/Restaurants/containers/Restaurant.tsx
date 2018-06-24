@@ -8,7 +8,7 @@ import {
 import { IStore } from "../../../../store/IStore";
 
 const mapStateToProps = ({ restaurantsApp: { freeTables } }: IStore): IRestaurantDataProps => ({
-  freeTables,
+  freeTables: Object.keys(freeTables).map(key => freeTables[key]),
 });
 
 export const Restaurant: React.ComponentClass<IRestaurantOwnProps> = connect(

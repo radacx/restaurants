@@ -47,7 +47,7 @@ export const fakeBackend: Backend = {
     reservations = reservations.filter(r => r.id !== id);
   },
   loadTables: () => Promise.resolve(tables),
-  createReservation: async (restaurantId: number, { block, day }: INewReservation) => {
+  createReservation: async (restaurantId: number, { block, day, tableId }: INewReservation) => {
     const newReservation: IReservation = {
       id: Math.random(),
       restaurant: restaurants.find(r => r.id === restaurantId)!,
@@ -56,5 +56,14 @@ export const fakeBackend: Backend = {
     };
 
     reservations.push(newReservation);
+
+    const table = tables.find(t => t.id === tableId);
+    const newTimeBlocks = table!.freeTimeBlocks.filter(tB => tB !== block);
+
+    if (newTimeBlocks.length === 0) {
+      delete tables[tableId];
+    } else {
+      table!.freeTimeBlocks = newTimeBlocks;
+    }
   },
 };

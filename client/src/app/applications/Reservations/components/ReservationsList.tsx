@@ -6,6 +6,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TableBody,
 } from "@material-ui/core";
 
 export interface IReservationsListDataProps {
@@ -29,13 +30,15 @@ export const ReservationsList: React.StatelessComponent<ReservationsListProps> =
         <TableCell />
       </TableRow>
     </TableHead>
-    {reservations.map(reservation => (
-      <TableRow key={reservation.id}>
-        <Reservation
-          reservation={reservation}
-          cancelReservation={cancelReservation}
-        />
-      </TableRow>
-    ))}
+    <TableBody>
+      {reservations.map(reservation => (
+        <TableRow key={reservation.id}>
+          <Reservation
+            reservation={reservation}
+            cancelReservation={cancelReservation}
+          />
+        </TableRow>
+      ))}
+    </TableBody>
   </Table>
 );
