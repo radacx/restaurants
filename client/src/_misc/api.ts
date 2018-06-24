@@ -1,6 +1,17 @@
-export const RESTAURANTS = '/reservations';
-export const RESTAURANTS_FREE_TABLES = `${RESTAURANTS}/free_tables`;
-export const RESTAURANTS_RESERVE = `${RESTAURANTS}/reserve`;
+const template = (strings: any, ...keys: any[]) =>
+  ((...values: any[]) => {
+    const dict = values[values.length - 1] || {};
+    const result = [strings[0]];
+    keys.forEach((key, i) => {
+      const value = Number.isInteger(key) ? values[key] : dict[key];
+      result.push(value, strings[i + 1]);
+    });
+    return result.join('');
+  });
+
+export const RESTAURANTS = '/restaurants';
+export const RESTAURANTS_FREE_TABLES = template`${RESTAURANTS}/${0}/free_tables`;
 
 export const RESERVATIONS = '/reservations';
-export const RESERVATIONS_REMOVE = `${RESERVATIONS}/remove`;
+export const RESERVATIONS_CREATE = template`${RESTAURANTS}/${0}/create_reservation`;
+export const RESERVATIONS_REMOVE = template`${RESERVATIONS}/${0}/remove`;
