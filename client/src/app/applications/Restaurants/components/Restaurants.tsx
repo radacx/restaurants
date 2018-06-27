@@ -18,6 +18,7 @@ import * as classNames from "classnames";
 import { NumericInput } from "../../../../_shared/Components/NumericInput";
 import { ReservationCreatedSnackbar } from "./ReservationCreatedSnackbar";
 import { INewReservation } from "../../../../_types/INewReservation";
+import { CreateReservationDialog } from "./CreateReservationDialog";
 
 export interface IRestaurantsDataProps {
   readonly restaurants: IRestaurant[];
@@ -36,6 +37,9 @@ type State = {
   readonly seats: number;
   readonly wholeDay: boolean;
   readonly openSnackbar: boolean;
+  readonly openCreateReservationDialog: boolean;
+  readonly block: number;
+  readonly tableId: number;
 }
 
 const getStyles = (theme: Theme) => ({
@@ -61,6 +65,9 @@ class Restaurants extends React.PureComponent<Props, State> {
     hoursFrom: 0,
     hoursTo: 0,
     openSnackbar: false,
+    openCreateReservationDialog: false,
+    tableId: -1,
+    block: -1,
   };
 
   _getLabel = (restaurant: IRestaurant) => restaurant.name;
@@ -85,6 +92,30 @@ class Restaurants extends React.PureComponent<Props, State> {
   _toggleWholeDay = (_event: any, wholeDay: boolean) =>
     this.setState({ wholeDay });
 
+  _closeCreateReservationDialog = () =>
+    this.setState({ openCreateReservationDialog: false });
+
+  _submitNewReservation = (forName: string) => {
+    const { restaurant, day, block, tableId } = this.state;
+
+    if (!restaurant) {
+      return;
+    }
+
+    const reservation: INewReservation = {
+      block,
+      tableId,
+      forName,
+      day: day!,
+    };
+    this.props.createReservation(restaurant.id, reservation);
+
+    this.setState({
+      openCreateReservationDialog: false,
+      openSnackbar: true,
+    });
+  };
+
   _searchFreeTables = () => {
     const { wholeDay, restaurant, hoursFrom, hoursTo, day, seats } = this.state;
     const freeTablesRequest: IFreeTablesRequest = {
@@ -99,20 +130,11 @@ class Restaurants extends React.PureComponent<Props, State> {
   };
 
   _createReservation = async (tableId: number, block: number) => {
-    const { restaurant, day } = this.state;
-
-    if (!restaurant) {
-      return;
-    }
-
-    const reservation: INewReservation = {
-      block,
+    this.setState({
+      openCreateReservationDialog: true,
       tableId,
-      day: day!,
-    };
-    this.props.createReservation(restaurant.id, reservation);
-
-    this.setState({ openSnackbar: true });
+      block,
+    });
   };
 
   _hideSnackBar = () => this.setState({ openSnackbar: false });
@@ -207,6 +229,12 @@ class Restaurants extends React.PureComponent<Props, State> {
           open={this.state.openSnackbar}
           onClose={this._hideSnackBar}
           onNavigation={this._navigateToReservations}
+        />
+
+        <CreateReservationDialog
+          isOpened={this.state.openCreateReservationDialog}
+          onClose={this._closeCreateReservationDialog}
+          onSubmit={this._submitNewReservation}
         />
       </>
     );

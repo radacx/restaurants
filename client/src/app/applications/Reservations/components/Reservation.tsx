@@ -32,6 +32,9 @@ export class Reservation extends React.PureComponent<IReservationOwnProps> {
           {hoursRange}
         </TableCell>
         <TableCell>
+          {reservation.forName}
+        </TableCell>
+        <TableCell>
           <Button
             color="secondary"
             onClick={this._cancelReservation}

@@ -27,6 +27,7 @@ export const ReservationsList: React.StatelessComponent<ReservationsListProps> =
         <TableCell>Restaurant</TableCell>
         <TableCell>Date</TableCell>
         <TableCell>Time</TableCell>
+        <TableCell>For name</TableCell>
         <TableCell />
       </TableRow>
     </TableHead>

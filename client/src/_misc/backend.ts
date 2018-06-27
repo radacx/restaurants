@@ -38,7 +38,7 @@ const tables: ITable[] = [
   { id: 2, seats: 2, number: 36, freeTimeBlocks: [ 5, 6 ] },
 ];
 let reservations: IReservation[] = [
-  { id: 3, block: 5, day: new Date(), restaurant: { id: 1, name: 'Trolo' } }
+  { id: 3, block: 5, day: new Date(), restaurant: { id: 1, name: 'Trolo' }, forName: 'yourself' }
 ];
 
 export const fakeBackend: Backend = {
@@ -48,12 +48,13 @@ export const fakeBackend: Backend = {
     reservations = reservations.filter(r => r.id !== id);
   },
   loadTables: () => Promise.resolve(tables),
-  createReservation: async (restaurantId: number, { block, day, tableId }: INewReservation) => {
+  createReservation: async (restaurantId: number, { block, day, tableId, forName }: INewReservation) => {
     const newReservation: IReservation = {
       id: Math.random(),
       restaurant: restaurants.find(r => r.id === restaurantId)!,
       block,
       day,
+      forName,
     };
 
     reservations.push(newReservation);

@@ -5,4 +5,5 @@ export interface IReservation {
   restaurant: IRestaurant;
   day: Date;
   block: number;
+  forName: string;
 }
