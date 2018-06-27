@@ -2,8 +2,16 @@ const blockToHoursRatio = 2;
 
 const blockToHours = (block: number): number => block * blockToHoursRatio;
 
-const hourToString = (hour: number): string =>
+export const hourToString = (hour: number): string =>
   `${hour < 10 ? '0' : ''}${hour}:00`;
+
+export const stringToHours = (hourString: string): number => {
+  const hourMatch = /(\d+):00/.exec(hourString);
+
+  return hourMatch
+    ? +hourMatch[1]
+    : 0;
+};
 
 export const blockToTimeRangeString = (block: number): string => {
   const startingHour = blockToHours(block);

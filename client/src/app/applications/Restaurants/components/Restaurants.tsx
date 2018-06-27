@@ -19,6 +19,7 @@ import { NumericInput } from "../../../../_shared/Components/NumericInput";
 import { ReservationCreatedSnackbar } from "./ReservationCreatedSnackbar";
 import { INewReservation } from "../../../../_types/INewReservation";
 import { CreateReservationDialog } from "./CreateReservationDialog";
+import { HourPicker } from "../../../../_shared/Components/HourPicker";
 
 export interface IRestaurantsDataProps {
   readonly restaurants: IRestaurant[];
@@ -49,6 +50,9 @@ const getStyles = (theme: Theme) => ({
   datePicker: {
     margin: theme.spacing.unit,
   },
+  timePicker: {
+    margin: theme.spacing.unit,
+  },
 });
 
 type Classes = ReturnType<typeof getStyles>;
@@ -62,8 +66,8 @@ class Restaurants extends React.PureComponent<Props, State> {
     day: null,
     seats: 2,
     wholeDay: true,
-    hoursFrom: 0,
-    hoursTo: 0,
+    hoursFrom: 6,
+    hoursTo: 18,
     openSnackbar: false,
     openCreateReservationDialog: false,
     tableId: -1,
@@ -176,22 +180,20 @@ class Restaurants extends React.PureComponent<Props, State> {
             />
           </FormControl>
 
-          <NumericInput
+          <HourPicker
+            className={classes.timePicker}
             label="From"
             value={this.state.hoursFrom}
             onChange={this._changeFrom}
             disabled={disableTimePicker}
-            minValue={0}
-            maxValue={23}
           />
 
-          <NumericInput
+          <HourPicker
+            className={classes.timePicker}
             label="To"
             value={this.state.hoursTo}
             onChange={this._changeTo}
             disabled={disableTimePicker}
-            minValue={0}
-            maxValue={23}
           />
 
           <NumericInput
