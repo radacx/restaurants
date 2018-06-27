@@ -41,6 +41,8 @@ type State = {
   readonly openCreateReservationDialog: boolean;
   readonly block: number;
   readonly tableId: number;
+  readonly restaurantError: boolean;
+  readonly dateError: boolean;
 }
 
 const getStyles = (theme: Theme) => ({
@@ -72,6 +74,8 @@ class Restaurants extends React.PureComponent<Props, State> {
     openCreateReservationDialog: false,
     tableId: -1,
     block: -1,
+    restaurantError: false,
+    dateError: false,
   };
 
   _getLabel = (restaurant: IRestaurant) => restaurant.name;
@@ -79,10 +83,16 @@ class Restaurants extends React.PureComponent<Props, State> {
   _getId = (restaurant: IRestaurant) => restaurant.id;
 
   _onRestaurantSelected = (restaurant: IRestaurant) =>
-    this.setState({ restaurant });
+    this.setState({
+      restaurant,
+      restaurantError: false,
+    });
 
   _changeDate = (day: Date) =>
-    this.setState({ day });
+    this.setState({
+      day,
+      dateError: false,
+    });
 
   _changeFrom = (hoursFrom: number) =>
     this.setState({ hoursFrom });
@@ -122,15 +132,24 @@ class Restaurants extends React.PureComponent<Props, State> {
 
   _searchFreeTables = () => {
     const { wholeDay, restaurant, hoursFrom, hoursTo, day, seats } = this.state;
+
+    if (!restaurant || !day) {
+      this.setState({
+        dateError: !day,
+        restaurantError: !restaurant,
+      });
+      return;
+    }
+
     const freeTablesRequest: IFreeTablesRequest = {
-      day: day!,
+      day,
       hoursFrom,
       hoursTo,
       seats,
       wholeDay,
     };
 
-    this.props.getFreeTables(restaurant!.id, freeTablesRequest)
+    this.props.getFreeTables(restaurant.id, freeTablesRequest)
   };
 
   _createReservation = async (tableId: number, block: number) => {
@@ -148,10 +167,7 @@ class Restaurants extends React.PureComponent<Props, State> {
 
   render() {
     const { restaurants, classes } = this.props;
-    const { wholeDay, restaurant, hoursTo, hoursFrom, day } = this.state;
-
-    const disableTimePicker = wholeDay;
-    const searchDisabled = !restaurant || !day || (!wholeDay && (!hoursFrom || !hoursTo));
+    const disableTimePicker = this.state.wholeDay;
 
     const today = new Date();
     const todaysDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -167,6 +183,7 @@ class Restaurants extends React.PureComponent<Props, State> {
             label="Restaurant"
             placeholder="Choose a restaurant..."
             onChange={this._onRestaurantSelected}
+            hasError={this.state.restaurantError}
           />
 
           <FormControl className={classNames(classes.datePicker)}>
@@ -177,6 +194,7 @@ class Restaurants extends React.PureComponent<Props, State> {
               value={this.state.day}
               onChange={this._changeDate}
               animateYearScrolling={false}
+              error={this.state.dateError}
             />
           </FormControl>
 
@@ -215,7 +233,6 @@ class Restaurants extends React.PureComponent<Props, State> {
 
           <Button
             onClick={this._searchFreeTables}
-            disabled={searchDisabled}
             color="primary"
             variant="contained"
             className={classNames(classes.searchButton)}

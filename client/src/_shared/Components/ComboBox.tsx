@@ -26,6 +26,7 @@ interface IProps<TValue> {
   readonly value?: TValue;
   readonly formatValue: (value: TValue) => number | string;
   readonly getId: (value: TValue) => number;
+  readonly hasError?: boolean;
 }
 
 type Props<TValue> = IProps<TValue> & WithStyles<keyof Classes>;
@@ -41,7 +42,7 @@ class ComboBox<TValue> extends React.PureComponent<Props<TValue>> {
   };
 
   render() {
-    const { value, formatValue, values, label, classes, getId, placeholder } = this.props;
+    const { hasError, value, formatValue, values, label, classes, getId, placeholder } = this.props;
 
     const selectedId = value && getId(value);
 
@@ -59,7 +60,10 @@ class ComboBox<TValue> extends React.PureComponent<Props<TValue>> {
     });
 
     return(
-      <FormControl className={classes.formControl}>
+      <FormControl
+        error={hasError}
+        className={classes.formControl}
+      >
         <InputLabel
           htmlFor="ComboBox"
           shrink={!!selectedId}
