@@ -25,7 +25,7 @@ interface IProps<TValue> {
   readonly onChange: (value: TValue) => void;
   readonly value?: TValue;
   readonly formatValue: (value: TValue) => number | string;
-  readonly getId: (value: TValue) => string | number;
+  readonly getId: (value: TValue) => string;
   readonly hasError?: boolean;
 }
 

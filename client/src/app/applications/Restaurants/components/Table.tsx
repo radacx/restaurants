@@ -49,9 +49,7 @@ export class Table extends React.PureComponent<ITableOwnProps, State> {
   };
 
   _changeHourBlock = (hourBlock: HourBlock) =>
-  {
     this.setState({ hourBlock });
-  };
 
   _createReservation = () =>
     this.props.createReservation(this.props.table.id, this.state.hourBlock.timeBlock);
@@ -59,8 +57,8 @@ export class Table extends React.PureComponent<ITableOwnProps, State> {
   _getLabel = (hourBlock: HourBlock): string =>
     hourBlock.text;
 
-  _getId = (hourBlock: HourBlock): number =>
-    hourBlock.timeBlock;
+  _getId = (hourBlock: HourBlock): string =>
+    hourBlock.timeBlock.toString(10);
 
   render() {
     const { table } = this.props;
