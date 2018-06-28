@@ -24,4 +24,4 @@ export const blockToTimeRangeString = (block: number): string => {
 };
 
 export const dateToString = (date: Date): string =>
-  `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
