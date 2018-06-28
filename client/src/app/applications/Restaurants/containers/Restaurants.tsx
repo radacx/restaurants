@@ -20,8 +20,8 @@ const mapStateToProps = ({ restaurantsApp: { restaurants } }: IStore): IRestaura
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IRestaurantsCallbackProps => ({
-  getFreeTables: (restaurantId: number, freeTablesRequest: IFreeTablesRequest) => dispatch(loadFreeTables(restaurantId, freeTablesRequest)),
-  createReservation: (restaurantId: number, reservation: INewReservation) => dispatch(createReservation(restaurantId, reservation)),
+  getFreeTables: (restaurantId: string, freeTablesRequest: IFreeTablesRequest) => dispatch(loadFreeTables(restaurantId, freeTablesRequest)),
+  createReservation: (restaurantId: string, reservation: INewReservation) => dispatch(createReservation(restaurantId, reservation)),
 });
 
 const RestaurantsWithRouter = withRouter(RestaurantsComponent);

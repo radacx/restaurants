@@ -22,7 +22,6 @@ export class RestaurantsApp extends React.PureComponent<IRestaurantsAppCallbackP
 
   render() {
     if (!this.state.initialized) {
-      // TODO loader
       return null;
     }
 

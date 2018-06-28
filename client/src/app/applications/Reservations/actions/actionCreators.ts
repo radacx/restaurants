@@ -9,7 +9,7 @@ export const reservationsLoaded = (reservations: IReservation[]) => ({
   payload: { reservations },
 });
 
-export const reservationRemoved = (id: number) => ({
+export const reservationRemoved = (id: string) => ({
   type: RESERVATION_REMOVED,
   payload: { id },
 });

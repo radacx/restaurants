@@ -16,7 +16,7 @@ const mapStateToProps = ({ reservationsApp: { reservations } }: IStore): IReserv
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IReservationsListCallbackProps => ({
-  cancelReservation: (id: number) => dispatch(cancelReservation(id)),
+  cancelReservation: (id: string) => dispatch(cancelReservation(id)),
 });
 
 export const ReservationsList: React.ComponentClass = connect(

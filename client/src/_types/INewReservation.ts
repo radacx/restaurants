@@ -1,6 +1,6 @@
 export interface INewReservation {
-  tableId: number;
+  tableId: string;
   block: number;
-  day: Date;
+  day: string;
   forName: string;
 }

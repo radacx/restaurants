@@ -1,5 +1,5 @@
 export interface ITable {
-  id: number;
+  id: string;
   number: number;
   seats: number;
   freeTimeBlocks: number[];

@@ -1,5 +1,5 @@
 export interface IRestaurant {
-  id: number;
+  id: string;
   name: string;
 }
 

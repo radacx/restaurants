@@ -15,14 +15,14 @@ export const fetchRestaurants = () =>
     dispatch(restaurantsLoaded(restaurants));
   };
 
-export const loadFreeTables = (restaurantId: number, freeTablesRequest: IFreeTablesRequest) =>
+export const loadFreeTables = (restaurantId: string, freeTablesRequest: IFreeTablesRequest) =>
   async (dispatch: Dispatch): Promise<void> => {
     const tables = await backend.loadTables(restaurantId, freeTablesRequest);
 
     dispatch(freeTablesLoaded(tables));
   };
 
-export const createReservation = (restaurantId: number, reservation: INewReservation) =>
+export const createReservation = (restaurantId: string, reservation: INewReservation) =>
   async (dispatch: Dispatch): Promise<void> => {
     await backend.createReservation(restaurantId, reservation);
 

@@ -14,7 +14,7 @@ export interface IReservationsListDataProps {
 }
 
 export interface IReservationsListCallbackProps {
-  readonly cancelReservation: (id: number) => void;
+  readonly cancelReservation: (id: string) => void;
 }
 
 type ReservationsListProps = IReservationsListDataProps

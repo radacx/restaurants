@@ -8,7 +8,7 @@ import { IAction } from "../../../../../_types/IAction";
 import { INewReservation } from "../../../../../_types/INewReservation";
 
 type State = {
-  [index: number]: ITable;
+  [index: string]: ITable;
 };
 
 const initialState: State = {};
@@ -16,7 +16,7 @@ const initialState: State = {};
 export const freeTables = (state = initialState, { type, payload }: IAction): State => {
   switch (type) {
     case FREE_TABLES_LOADED:
-      return payload.freeTables.reduce((freeTablesObject: { [index: number]: ITable }, t: ITable) => {
+      return payload.freeTables.reduce((freeTablesObject: { [index: string]: ITable }, t: ITable) => {
         freeTablesObject[t.id] = t;
         return freeTablesObject;
       }, {});

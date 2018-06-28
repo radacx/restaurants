@@ -1,5 +1,5 @@
 export interface IFreeTablesRequest {
-  day: Date;
+  day: string;
   hoursFrom: number;
   hoursTo: number;
   seats: number;

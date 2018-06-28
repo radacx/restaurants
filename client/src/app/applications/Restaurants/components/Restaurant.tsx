@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 
 export interface IRestaurantOwnProps {
-  readonly createReservation: (tableId: number, block: number) => void;
+  readonly createReservation: (tableId: string, block: number) => void;
 }
 
 export interface IRestaurantDataProps {

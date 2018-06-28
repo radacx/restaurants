@@ -5,16 +5,6 @@ import { SuccessSnackbarContent } from "./SuccessSnackbarContent";
 
 const snackBarOrigin: SnackBarOrigin = { vertical: 'bottom', horizontal: 'left' };
 
-interface ISnackBarMessageProps {
-  readonly message: string;
-}
-
-export const SnackBarMessage: React.StatelessComponent<ISnackBarMessageProps> = ({ message }) => (
-  <span>
-    {message}
-  </span>
-);
-
 interface IReservationCreatedSnackBarProps {
   readonly open: boolean;
   readonly message: string;

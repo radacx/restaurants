@@ -20,14 +20,15 @@ import { ReservationCreatedSnackbar } from "./ReservationCreatedSnackbar";
 import { INewReservation } from "../../../../_types/INewReservation";
 import { CreateReservationDialog } from "./CreateReservationDialog";
 import { HourPicker } from "../../../../_shared/Components/HourPicker";
+import { dateToString } from "../../../../_misc/utils";
 
 export interface IRestaurantsDataProps {
   readonly restaurants: IRestaurant[];
 }
 
 export interface IRestaurantsCallbackProps {
-  readonly getFreeTables: (restaurantId: number, freeTablesRequest: IFreeTablesRequest) => void;
-  readonly createReservation: (restaurantId: number, reservation: INewReservation) => void;
+  readonly getFreeTables: (restaurantId: string, freeTablesRequest: IFreeTablesRequest) => void;
+  readonly createReservation: (restaurantId: string, reservation: INewReservation) => void;
 }
 
 type State = {
@@ -40,7 +41,7 @@ type State = {
   readonly openSnackbar: boolean;
   readonly openCreateReservationDialog: boolean;
   readonly block: number;
-  readonly tableId: number;
+  readonly tableId: string;
   readonly restaurantError: boolean;
   readonly dateError: boolean;
 }
@@ -72,7 +73,7 @@ class Restaurants extends React.PureComponent<Props, State> {
     hoursTo: 18,
     openSnackbar: false,
     openCreateReservationDialog: false,
-    tableId: -1,
+    tableId: '',
     block: -1,
     restaurantError: false,
     dateError: false,
@@ -110,17 +111,19 @@ class Restaurants extends React.PureComponent<Props, State> {
     this.setState({ openCreateReservationDialog: false });
 
   _submitNewReservation = (forName: string) => {
-    const { restaurant, day, block, tableId } = this.state;
+    const { restaurant, day: date, block, tableId } = this.state;
 
-    if (!restaurant) {
+    if (!restaurant || !date) {
       return;
     }
+
+    const day = dateToString(date);
 
     const reservation: INewReservation = {
       block,
       tableId,
       forName,
-      day: day!,
+      day,
     };
     this.props.createReservation(restaurant.id, reservation);
 
@@ -131,15 +134,17 @@ class Restaurants extends React.PureComponent<Props, State> {
   };
 
   _searchFreeTables = () => {
-    const { wholeDay, restaurant, hoursFrom, hoursTo, day, seats } = this.state;
+    const { wholeDay, restaurant, hoursFrom, hoursTo, day: date, seats } = this.state;
 
-    if (!restaurant || !day) {
+    if (!restaurant || !date) {
       this.setState({
-        dateError: !day,
+        dateError: !date,
         restaurantError: !restaurant,
       });
       return;
     }
+
+    const day = dateToString(date);
 
     const freeTablesRequest: IFreeTablesRequest = {
       day,
@@ -152,7 +157,7 @@ class Restaurants extends React.PureComponent<Props, State> {
     this.props.getFreeTables(restaurant.id, freeTablesRequest)
   };
 
-  _createReservation = async (tableId: number, block: number) => {
+  _createReservation = async (tableId: string, block: number) => {
     this.setState({
       openCreateReservationDialog: true,
       tableId,

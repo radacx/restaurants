@@ -17,10 +17,10 @@ export const backend = {
     HttpClient.get<IRestaurant[]>(RESTAURANTS),
   getReservations: (): Promise<IReservation[]> =>
     HttpClient.get<IReservation[]>(RESERVATIONS),
-  removeReservation: (id: number): Promise<any> =>
+  removeReservation: (id: string): Promise<any> =>
     HttpClient.delete(RESERVATIONS_REMOVE(id)),
-  loadTables: (restaurantId: number, freeTablesRequest: IFreeTablesRequest): Promise<ITable[]> =>
+  loadTables: (restaurantId: string, freeTablesRequest: IFreeTablesRequest): Promise<ITable[]> =>
     HttpClient.get<ITable[]>(RESTAURANTS_FREE_TABLES(restaurantId), freeTablesRequest),
-  createReservation: (restaurantId: number, reservation: INewReservation): Promise<void> =>
+  createReservation: (restaurantId: string, reservation: INewReservation): Promise<void> =>
     HttpClient.post(RESERVATIONS_CREATE(restaurantId), reservation),
 };

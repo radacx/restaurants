@@ -6,7 +6,7 @@ import {
 } from "../../actions/actionTypes";
 
 type State = {
-  [index: number]: IReservation,
+  [index: string]: IReservation,
 };
 const initialState: State = {};
 

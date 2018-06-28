@@ -23,7 +23,6 @@ export class ReservationsApp extends React.PureComponent<IReservationsAppCallbac
   render() {
     if (!this.state.initialized) {
       return null;
-      // TODO loader
     }
 
     return <ReservationsList />;

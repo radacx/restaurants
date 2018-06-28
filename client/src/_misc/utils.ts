@@ -22,3 +22,6 @@ export const blockToTimeRangeString = (block: number): string => {
 
   return `${timeFrom} - ${timeTo}`;
 };
+
+export const dateToString = (date: Date): string =>
+  `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;

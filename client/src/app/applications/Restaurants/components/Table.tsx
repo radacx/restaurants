@@ -23,7 +23,7 @@ const toHourBlock = (timeBlock: number): HourBlock => ({
 
 interface ITableOwnProps {
   readonly table: ITable,
-  readonly createReservation: (tableId: number, block: number) => void;
+  readonly createReservation: (tableId: string, block: number) => void;
 }
 
 type State = {

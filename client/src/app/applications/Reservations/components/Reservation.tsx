@@ -8,7 +8,7 @@ import {
 
 interface IReservationOwnProps {
   readonly reservation: IReservation;
-  readonly cancelReservation: (id: number) => void;
+  readonly cancelReservation: (id: string) => void;
 }
 
 export class Reservation extends React.PureComponent<IReservationOwnProps> {
@@ -26,7 +26,7 @@ export class Reservation extends React.PureComponent<IReservationOwnProps> {
           {restaurant.name}
         </TableCell>
         <TableCell>
-          {reservation.day.toDateString()}
+          {reservation.day}
         </TableCell>
         <TableCell>
           {hoursRange}

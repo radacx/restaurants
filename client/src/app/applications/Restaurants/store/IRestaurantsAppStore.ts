@@ -4,6 +4,6 @@ import { ITable } from "../../../../_types/ITable";
 export interface IRestaurantsAppStore {
   restaurants: IRestaurant[];
   freeTables: {
-    [index: number]: ITable;
+    [index: string]: ITable;
   };
 }

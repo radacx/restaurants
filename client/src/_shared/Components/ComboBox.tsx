@@ -25,7 +25,7 @@ interface IProps<TValue> {
   readonly onChange: (value: TValue) => void;
   readonly value?: TValue;
   readonly formatValue: (value: TValue) => number | string;
-  readonly getId: (value: TValue) => number;
+  readonly getId: (value: TValue) => string | number;
   readonly hasError?: boolean;
 }
 
@@ -33,7 +33,7 @@ type Props<TValue> = IProps<TValue> & WithStyles<keyof Classes>;
 
 class ComboBox<TValue> extends React.PureComponent<Props<TValue>> {
   _valueChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const id = +e.currentTarget.attributes['data-value'].nodeValue;
+    const id = e.currentTarget.attributes['data-value'].nodeValue;
 
     const { values, getId, onChange } = this.props;
     const value = values.find(v => getId(v) === id);

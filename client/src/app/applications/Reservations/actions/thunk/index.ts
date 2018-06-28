@@ -12,7 +12,7 @@ export const fetchReservations = () =>
     dispatch(reservationsLoaded(reservations));
   };
 
-export const cancelReservation = (id: number) =>
+export const cancelReservation = (id: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     await backend.removeReservation(id);
 

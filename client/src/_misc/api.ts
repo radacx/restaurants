@@ -1,19 +1,14 @@
-const template = (strings: any, ...keys: any[]) =>
-  ((...values: any[]) => {
-    const dict = values[values.length - 1] || {};
-    const result = [strings[0]];
-    keys.forEach((key, i) => {
-      const value = Number.isInteger(key) ? values[key] : dict[key];
-      result.push(value, strings[i + 1]);
-    });
-    return result.join('');
-  });
+let BASE = process.env.url
+  || 'http://ruby-api.eu-gb.mybluemix.net/'
+  || 'http://localhost:4567';
 
-const BASE = 'http://localhost:4567';
+if (BASE.endsWith('/')) {
+  BASE = BASE.substring(0, BASE.length - 1);
+}
 
 export const RESTAURANTS = `${BASE}/restaurants`;
-export const RESTAURANTS_FREE_TABLES = template`${RESTAURANTS}/${0}/free_tables`;
+export const RESTAURANTS_FREE_TABLES = (restaurantId: string) => `${RESTAURANTS}/${restaurantId}/free_tables`;
 
 export const RESERVATIONS = `${BASE}/reservations`;
-export const RESERVATIONS_CREATE = template`${RESTAURANTS}/${0}/create_reservation`;
-export const RESERVATIONS_REMOVE = template`${RESERVATIONS}/${0}/remove`;
+export const RESERVATIONS_CREATE = (restaurantId: string) => `${RESTAURANTS}/${restaurantId}/create_reservation`;
+export const RESERVATIONS_REMOVE = (reservationId: string) => `${RESERVATIONS}/${reservationId}/remove`;

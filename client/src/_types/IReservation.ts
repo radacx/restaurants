@@ -1,9 +1,9 @@
 import { IRestaurant } from "./IRestaurant";
 
 export interface IReservation {
-  id: number;
+  id: string;
   restaurant: IRestaurant;
-  day: Date;
+  day: string;
   block: number;
   forName: string;
 }
