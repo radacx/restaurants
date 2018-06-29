@@ -223,7 +223,8 @@ class Restaurants extends React.PureComponent<Props, State> {
             label="Seats"
             value={this.state.seats}
             onChange={this._seatsChanged}
-            minValue={1}
+            minValue={2}
+            maxValue={5}
           />
 
           <FormControlLabel
